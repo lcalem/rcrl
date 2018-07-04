@@ -1,0 +1,5 @@
+
+
+class CubeModel(object):
+    
+    pass
