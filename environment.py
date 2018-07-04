@@ -3,6 +3,21 @@ import random
 
 class CubeEnvironment(object):
 
+    # TODO frozendict
+    actions_enum = {
+        1: "R",
+        2: "R'",
+        3: "L",
+        4: "L'",
+        5: "F",
+        6: "F'",
+        7: "U",
+        8: "U'",
+        9: "D",
+        10: "D'"
+    }
+    possible_actions = actions_enum.keys()
+
     def __init__(self, cube_size=3):
         self.size = 3
         self.cube_state = None
@@ -20,6 +35,9 @@ class CubeEnvironment(object):
 
         self.cube_state = self.generate_random_cube()
         return self.cube_state
+
+    def get_action_space(self):
+        return self.possible_actions
 
     def generate_random_cube(self):
         '''

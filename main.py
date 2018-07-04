@@ -7,7 +7,8 @@ from model import CubeModel
 def train(n_episodes):
 
     env = CubeEnvironment()
-    model = CubeModel()
+    action_space = env.get_action_space()
+    model = CubeModel(action_space)
 
     for episode in range(n_episodes):
         prev_state = env.init_cube()
