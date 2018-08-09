@@ -14,4 +14,6 @@ RUN pip3 install -r requirements.txt && rm requirements.txt
 ADD docker/docker-entrypoint.sh .
 RUN chmod +x docker-entrypoint.sh
 
+ENV PYTHONPATH /workspace/:/workspace/src:$PYTHONPATH
+
 ENTRYPOINT ["./docker-entrypoint.sh"]

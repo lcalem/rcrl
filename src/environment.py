@@ -15,7 +15,7 @@ COLORS = {
     5: 'Orange'
 }
 
-SOLVED_CUBE = np.array([
+SOLVED_CUBE = np.matrix([
     0, 0, 0, 0, 0, 0, 0, 0, 0,
     1, 1, 1, 1, 1, 1, 1, 1, 1,
     2, 2, 2, 2, 2, 2, 2, 2, 2, 
@@ -41,6 +41,10 @@ ACTIONS = {
     "u": CUBE_U
 }
 
+SOLVED_REWARD = 1
+STEP_REWARD = 0
+
+
 class ActionError(Exception):
     pass
 
@@ -59,7 +63,7 @@ class CubeEnvironment(object):
         re-init the cube state to a random valid configuration or a specific representation if cube_repr is given
         returns the initial state
         '''
-        if cube_repr:
+        if cube_repr is not None:
             if self.check_valid_state(cube_repr):
                 self.cube_state = cube_repr
             else:
@@ -81,18 +85,19 @@ class CubeEnvironment(object):
         2. makes n random moves
         '''
         cube = np.ndarray.copy(SOLVED_CUBE)
-        for n in range(n_random):
+        for _ in range(n_random):
             action = random.choice(self.possible_actions)
-            cube = apply_action(action)
+            cube = self.apply_action(cube, action)
+
+        return cube
 
     def check_valid_state(self, cube_state):
         '''
         checks if the given cube_state is possible given a standard cube
         TODO For now: trust me dude
         '''
-        print(type(cube_state))
-        assert isinstance(cube_state, np.ndarray)
-        print(cube_state.shape)
+        assert isinstance(cube_state, np.matrix)
+        assert cube_state.shape == (1, 54)
         return True
 
     def take_action(self, action):
@@ -100,7 +105,7 @@ class CubeEnvironment(object):
         apply the given action to change the current cube state
         returns state, reward, and a boolean specifying if the cube is solved or not
         '''
-        self.cube_state = apply_action(self.cube_state, action)
+        self.cube_state = self.apply_action(self.cube_state, action)
 
         solved = self.check_solved(self.cube_state)
         reward = SOLVED_REWARD if solved else STEP_REWARD
