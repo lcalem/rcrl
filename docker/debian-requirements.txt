@@ -1,0 +1,4 @@
+sudo
+vim
+docker.io
+git
