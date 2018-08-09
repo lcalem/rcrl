@@ -13,7 +13,7 @@ def train(n_episodes):
     for episode in range(n_episodes):
         prev_state = env.init_cube()
 
-        action = model.get_next_action(init_state)
+        action = model.get_next_action(prev_state)
         state, reward, solved = env.take_action(action)
 
 
