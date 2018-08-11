@@ -28,17 +28,17 @@ ACTIONS = {
     "R": RIGHT,
     "R'": np.matmul(np.matmul(RIGHT, RIGHT), RIGHT),
     "L": np.matmul(np.matmul(np.matmul(np.matmul(CUBE_U, CUBE_U), RIGHT), CUBE_U), CUBE_U),
-    "L'": 0,
-    "F": 0,
-    "F'": 0,
-    "U": 0,
-    "U'": 0,
-    "D": 0,
-    "D'": 0,
-    "B": 0, 
-    "B'": 0,
-    "r": CUBE_R,
-    "u": CUBE_U
+    "L'": np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(CUBE_U, CUBE_U), RIGHT), RIGHT), RIGHT), CUBE_U), CUBE_U),
+    "F": np.matmul(np.matmul(np.matmul(np.matmul(CUBE_U, CUBE_U), CUBE_U), RIGHT), CUBE_U),
+    "F'": np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(CUBE_U, CUBE_U), CUBE_U), RIGHT), RIGHT), RIGHT), CUBE_U),
+    "U": np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(CUBE_R, CUBE_U), RIGHT), CUBE_U), CUBE_U), CUBE_U), CUBE_R), CUBE_R), CUBE_R),
+    "U'": np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(CUBE_R, CUBE_U), RIGHT), RIGHT), RIGHT), CUBE_U), CUBE_U), CUBE_U), CUBE_R), CUBE_R), CUBE_R),
+    "D": np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(CUBE_R, CUBE_U), CUBE_U), CUBE_U), RIGHT), CUBE_U), CUBE_R), CUBE_R), CUBE_R),
+    "D'": np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(CUBE_R, CUBE_U), CUBE_U), CUBE_U), RIGHT), RIGHT), RIGHT), CUBE_U), CUBE_R), CUBE_R), CUBE_R),
+    "B": np.matmul(np.matmul(np.matmul(np.matmul(CUBE_U, RIGHT), CUBE_U), CUBE_U), CUBE_U),
+    "B'": np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(np.matmul(CUBE_U, RIGHT), RIGHT), RIGHT), CUBE_U), CUBE_U), CUBE_U),
+    "[r]": CUBE_R,
+    "[u]": CUBE_U
 }
 
 SOLVED_REWARD = 1
