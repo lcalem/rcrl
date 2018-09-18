@@ -53,9 +53,8 @@ class CubeEnvironment(object):
     '''
     '''
 
-    possible_actions = ACTIONS.keys()
-
     def __init__(self):
+        self.possible_actions = list(ACTIONS.keys())
         self.cube_state = None
 
     def init_cube(self, cube_repr=None):
