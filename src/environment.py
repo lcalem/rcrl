@@ -24,6 +24,7 @@ SOLVED_CUBE = np.matrix([
     5, 5, 5, 5, 5, 5, 5, 5, 5
 ])
 
+# python 3.6 -> this dict is ordered
 ACTIONS = {
     "R": RIGHT,
     "R'": np.matmul(np.matmul(RIGHT, RIGHT), RIGHT),
@@ -54,7 +55,8 @@ class CubeEnvironment(object):
     '''
 
     def __init__(self):
-        self.possible_actions = list(ACTIONS.keys())
+        self.id_to_name = {i: k for i, k in enumerate(ACTIONS.keys())}
+        self.possible_actions = list(self.id_to_name.keys())
         self.cube_state = None
 
     def init_cube(self, cube_repr=None):
@@ -85,8 +87,8 @@ class CubeEnvironment(object):
         '''
         cube = np.ndarray.copy(SOLVED_CUBE)
         for _ in range(n_random):
-            action = random.choice(self.possible_actions)
-            cube = self.apply_action(cube, action)
+            action_id = random.choice(self.possible_actions)
+            cube = self.apply_action(cube, action_id)
 
         return cube
 
@@ -99,23 +101,24 @@ class CubeEnvironment(object):
         assert cube_state.shape == (1, 54)
         return True
 
-    def take_action(self, action):
+    def take_action(self, action_id):
         '''
         apply the given action to change the current cube state
         returns state, reward, and a boolean specifying if the cube is solved or not
         '''
-        self.cube_state = self.apply_action(self.cube_state, action)
+        self.cube_state = self.apply_action(self.cube_state, action_id)
 
         solved = self.check_solved(self.cube_state)
         reward = SOLVED_REWARD if solved else STEP_REWARD
 
         return self.cube_state, reward, solved
 
-    def apply_action(self, cube_state, action):
-        if action not in self.possible_actions:
-            raise ActionError("Invalid cube action %s" % action)
+    def apply_action(self, cube_state, action_id):
+        if action_id not in self.possible_actions:
+            raise ActionError("Invalid cube action %s" % action_id)
 
-        return np.matmul(cube_state, ACTIONS[action])
+        action_name = self.id_to_name[action_id]
+        return np.matmul(cube_state, ACTIONS[action_name])
 
     def check_solved(self, cube_state):
         '''
