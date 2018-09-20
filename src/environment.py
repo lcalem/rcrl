@@ -59,7 +59,7 @@ class CubeEnvironment(object):
         self.possible_actions = list(self.id_to_name.keys())
         self.cube_state = None
 
-    def init_cube(self, cube_repr=None):
+    def init_cube(self, cube_repr=None, distance=10):
         '''
         re-init the cube state to a random valid configuration or a specific representation if cube_repr is given
         returns the initial state
@@ -70,7 +70,7 @@ class CubeEnvironment(object):
             else:
                 raise Exception("Cube repr is not valid")
         else:
-            self.cube_state = self.generate_random_cube()
+            self.cube_state = self.generate_random_cube(n_random=distance)
 
         return self.cube_state
 
