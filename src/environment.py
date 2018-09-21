@@ -43,7 +43,7 @@ ACTIONS = {
 }
 
 SOLVED_REWARD = 1
-STEP_REWARD = -1
+STEP_REWARD = 0
 
 
 class ActionError(Exception):
