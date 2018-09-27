@@ -72,7 +72,7 @@ class PrioritizedExperienceReplay():
         probs = self.get_probabilities()
         indices = np.random.choice(current_size, batch_size, p=probs)
         samples = [self.replay_memory[i] for i in indices]
-        #samples = random.sample(self.replay_memory, batch_size)
+        # samples = random.sample(self.replay_memory, batch_size)
         
         # importance sampling weights
         prob_min = probs.min()

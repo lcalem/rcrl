@@ -42,8 +42,8 @@ ACTIONS = {
     "[u]": CUBE_U
 }
 
-SOLVED_REWARD = 1
-STEP_REWARD = 0
+SOLVED_REWARD = 1.0
+STEP_REWARD = -0.01
 
 
 class ActionError(Exception):
@@ -59,7 +59,7 @@ class CubeEnvironment(object):
         self.possible_actions = list(self.id_to_name.keys())
         self.cube_state = None
 
-    def init_cube(self, cube_repr=None, distance=10):
+    def init_cube(self, cube_repr=None, distance=30):
         '''
         re-init the cube state to a random valid configuration or a specific representation if cube_repr is given
         returns the initial state
@@ -77,7 +77,7 @@ class CubeEnvironment(object):
     def get_action_space(self):
         return self.possible_actions
 
-    def generate_random_cube(self, n_random=10):
+    def generate_random_cube(self, n_random=30):
         '''
         generates a random valid cube representation
         does NOT store it as the current cube representation
